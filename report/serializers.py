@@ -82,3 +82,45 @@ class FilialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filial
         fields = ['id', 'name', 'address', 'day', ]
+
+
+#  for products ------------------------------------------------------------------
+
+class UploadAudioTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadAudioTest
+        fields = '__all__'
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'title', 'image_link', 'image', 'images']
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    images = ProductImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Products
+        fields = ['id', 'bar_code', 'name', 'discription', 'quantity_in_store', 'quantity', 'size',
+                  'price', 'entry_price', 'old_price', 'discount', 'is_important', 'time',  'product', 'images']
+
+    def __str__(self):
+        return self.name
+
+
+class CategoryImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryImage
+        fields = ['id', 'image', 'image_link', 'title', 'images']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    images = CategoryImageSerializer(many=True, read_only=True)
+    product = ProductSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = ['id', 'category_name', 'images', 'product']

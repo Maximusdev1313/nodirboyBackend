@@ -50,3 +50,30 @@ class DayViewSet(ModelViewSet):
 class FilialViewSet(ModelViewSet):
     queryset = Filial.objects.all()
     serializer_class = FilialSerializer
+
+
+#  for products  ----------------------------------------------
+
+class UploadAudioTestViewSet(ModelViewSet):
+    queryset = UploadAudioTest.objects.all()
+    serializer_class = UploadAudioTestSerializer
+
+
+class ProductViewSet(ModelViewSet):
+    queryset = Products.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductImageViewSet(ModelViewSet):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+
+
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryImageViewSet(ModelViewSet):
+    queryset = CategoryImage.objects.all()
+    serializer_class = CategoryImageSerializer

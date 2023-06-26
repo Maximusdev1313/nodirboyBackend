@@ -127,3 +127,65 @@ class Filial(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# for products -----------------------------------------------
+
+
+class Products(models.Model):
+    id = models.CharField(primary_key=True, max_length=50)
+    bar_code = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    discription = models.CharField(max_length=1000, null=True, blank=True)
+    quantity_in_store = models.CharField(
+        max_length=1000, default=0, null=True, blank=True)
+    quantity = models.CharField(
+        max_length=1000, default=0, null=True, blank=True)
+    entry_price = models.CharField(
+        max_length=1000, default=0, null=True, blank=True)
+    price = models.CharField(max_length=100, null=True, blank=True)
+    is_important = models.BooleanField(default=False)
+    size = models.CharField(max_length=100, null=True, blank=True)
+    old_price = models.CharField(max_length=64, null=True, blank=True)
+    discount = models.CharField(max_length=10, null=True, blank=True)
+    time = models.DateTimeField(auto_now_add=True, )
+    product = models.ForeignKey(
+        'Category', on_delete=models.CASCADE, related_name='product')
+
+    def __str__(self):
+        return self.name
+
+
+class ProductImage(models.Model):
+    image_link = models.CharField(max_length=2000, null=True, blank=True)
+    image = models.ImageField(upload_to="media", null=True, blank=True)
+    title = models.CharField(max_length=2500, null=True)
+    images = models.ForeignKey(
+        'Products', on_delete=models.CASCADE, related_name='images')
+
+    def __str__(self):
+        return self.title
+
+
+class Category(models.Model):
+    id = models.CharField(primary_key=True, max_length=50)
+    category_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.category_name
+
+
+class CategoryImage(models.Model):
+    image_link = models.CharField(max_length=2000, null=True, blank=True)
+    image = models.ImageField(upload_to="media", null=True, blank=True)
+    title = models.CharField(max_length=2500, null=True)
+    images = models.ForeignKey(
+        'Category', on_delete=models.CASCADE, related_name='images')
+
+    def __str__(self):
+        return self.title
+
+
+class UploadAudioTest(models.Model):
+    name = models.CharField(max_length=100)
+    audio = models.FileField(upload_to='media', blank=True, null=True)
